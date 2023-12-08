@@ -14,8 +14,11 @@ const pollsSlice = createSlice({
             }
         },
         loadPolls: (state, action) => {
-            state.values = action.payload;
-            state.values.loaded = true;
+            // Only load if not already loaded
+            if (state.loaded !== true) {   
+                state.values = action.payload;
+                state.loaded = true;
+            }
         },
         addPollVote: (state, action) => {
             const { authedUser, pollId, option } = action.payload;
@@ -37,9 +40,14 @@ const pollsSlice = createSlice({
             else {
                 console.warn(`Poll ${pollId} does not exist.`);
             }            
+        },
+        // For testing purposes, remove before production.
+        clearPollsData : (state, action) => {
+            state.values = {};
+            state.loaded = false;
         }
     }
   });
 
-export const { addPoll, loadPolls, addPollVote, closePoll } = pollsSlice.actions;
+export const { addPoll, loadPolls, addPollVote, closePoll, clearPollsData } = pollsSlice.actions;
 export default pollsSlice.reducer;

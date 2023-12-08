@@ -11,6 +11,29 @@ body,
   background: white;
 }
 
+.span-inline {
+  display: inline-block;
+}
+
+.span-center {
+  text-align: center;
+}
+
+.div-center {
+  text-align: center;
+}
+
+.span-columndivider {
+  border-right: 1px solid grey;
+  height: 100%;
+}
+
+.form-center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
 .poll-summary {
   padding: 5px;
   margin: 5px;
@@ -75,17 +98,46 @@ body,
   margin-left: auto;
 }
 
+.details-page-main {
+  display: block;
+  text-align: center;
+  margin: auto;
+  width: 60%;
+}
+
+.detail {
+  display: block;
+  text-align: center;
+}
+
 .detail-wouldyou {
   width: 100%;
   display: block;
   margin: 5px, 0px, 10px, 0px;
   text-align: center;
+  font-size: 200%;
+}
+
+.detail-questions {
+  width: 100%;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 150%;
 }
 
 .detail-buttons {
   width: 100%;
   display: block;
   margin-top: 15px;
+}
+
+.detail-buttons {
+  width: 100%;
+  display: block;
+  margin: 5px, 0px, 10px, 0px;
+  text-align: center;
 }
 
 .button-div-left {
@@ -95,4 +147,63 @@ body,
 .button-div-right {
   float: right;
   text-align: right;
+}
+
+.leader-board {
+  display: block;
+  text-align: center;
+  margin: auto;
+  width: 70%;
+}
+
+.avatar-large {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+}
+
+.avatar-small {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.avatar-nav {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+}
+
+.user-row {
+  display: block;
+  width: 50%;
+  margin: 5px, auto;
+  border: 1px solid grey;
+  height: fit-content;
+  padding: 5px;
+}
+
+.user-avatar-column {
+  display: inline-block;
+  text-align: center;
+  width: 30%;
+  border-right: 1px solid grey;
+  height: 100%;
+  margin: 0;
+}
+
+.user-activity-count {
+  display: inline-block;
+  text-align: right;
+  width: 33%;
+  height: 100%;
+  text-align: center;
+  font-size: 50px;
+  margin: 0;
 }

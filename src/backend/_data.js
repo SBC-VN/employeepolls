@@ -150,7 +150,9 @@ let users = {
   export function _saveQuestion (question) {
     return new Promise((res, rej) => {
       const authedUser = question.author;
-      const formattedQuestion = formatQuestion(question)
+      const formattedQuestion = formatQuestion(question);
+
+      console.log("Formatted question",formattedQuestion);
   
       setTimeout(() => {
         questions = {
@@ -184,16 +186,22 @@ let users = {
             }
           }
         }
-  
-        questions = {
-          ...questions,
-          [qid]: {
-            ...questions[qid],
-            [answer]: {
-              ...questions[qid][answer],
-              votes: questions[qid][answer].votes.concat([authedUser])
+
+        if (questions.hasOwnProperty(qid))
+        {
+          questions = {
+            ...questions,
+            [qid]: {
+              ...questions[qid],
+              [answer]: {
+                ...questions[qid][answer],
+                votes: questions[qid][answer].votes.concat([authedUser])
+              }
             }
           }
+        }
+        else {
+          rej("Question does not exist [backend not persisted]");
         }
   
         res()

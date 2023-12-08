@@ -16,16 +16,29 @@ const usersSlice = createSlice({
             }
         },
         loadUsers: (state, action) => {
-            state.values = action.payload;
-            state.loaded = true;
+            // Only load if not already loaded
+            if (state.loaded !== true) {
+                state.values = action.payload;
+                state.loaded = true;
+            }
         },
         addUserResponse: (state, action) => {
             const { userId, pollId, option } = action.payload;
             const user = state.values[userId];
             user.answers[pollId] = option;
+        },
+        addUserPoll: (state, action) => {
+            const { userId, pollId } = action.payload;
+            const user = state.values[userId];
+            user.questions.push(pollId);
+        },
+        // For testing purposes, remove before production.
+        clearUsersData : (state, action) => {
+            state.values = {};
+            state.loaded = false;
         }
     }
   });
 
-export const { addUser, loadUsers, addUserResponse } = usersSlice.actions;
+export const { addUser, loadUsers, addUserResponse, addUserPoll, clearUsersData } = usersSlice.actions;
 export default usersSlice.reducer;

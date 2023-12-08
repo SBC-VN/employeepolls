@@ -13,6 +13,8 @@ const PollSummary = ({ poll }) => {
         <>
         <div className="poll-summary">
             <div className="summary-date">{poll.timestamp}</div>
+            <div>{poll.id}</div>
+            <hr></hr>
             <div className="summary-question">{poll.optionOne.text}</div>
             <div className="summary-or">or</div>
             <div className="summary-question">{poll.optionTwo.text}</div>

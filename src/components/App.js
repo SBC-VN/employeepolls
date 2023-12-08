@@ -4,10 +4,14 @@ import { useEffect } from 'react';
 import { _getUsers, _getQuestions } from '../backend/_data';
 import { loadUsers } from '../store/usersSlice';
 import { loadPolls } from '../store/pollsSlice';
-import PollGroup from './PollGroup';
 import NavBar from './NavBar';
 import ModalWrapper from './ModalWrapper';
 import LoginForm from './LoginForm';
+import Dashboard from './Dashboard';
+import NewPoll from './NewPoll';
+import LeaderBoard from './LeaderBoard';
+import { Routes, Route } from 'react-router-dom';
+import QuestionDetails from './QuestionDetails';
 
 const App = () => {    
     let users = useSelector(store => store.users);
@@ -18,25 +22,24 @@ const App = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {        
+    useEffect(() => {
         _getUsers().then(users => {
             dispatch(loadUsers(users)) });
         _getQuestions().then(polls => {
             dispatch(loadPolls(polls)) });
     }, [dispatch]);
 
-    if (polls.loaded === false && users.loaded === false) {
-        return <h3>Loading</h3>;
-    }
-
     return (
-        <div>
-            <NavBar parent="polls" />
-            <PollGroup type="New"/>
-            <PollGroup type="In-Progress"/>
-            <PollGroup type="Closed"/>
+        <div className="App">
+            <NavBar parent="dashboard" />
+            {(polls.loaded === false || users.loaded === false || auth.value == null) ?  (<h3>Loading</h3>) :
+                (<Routes>
+                    <Route exact path="/dashboard" element={<Dashboard />} />
+                    <Route exact path="/leaderboard" element={<LeaderBoard />} />
+                    <Route exact path="/add" element={<NewPoll />} />
+                    <Route path="/questions" element={<QuestionDetails />} />
+                </Routes>)}
             <ModalWrapper title={`Login`} Component={() => <LoginForm handleClose={handleClose} />} show={auth.value==null} handleClose={handleClose} />
-
         </div>
     );
 };

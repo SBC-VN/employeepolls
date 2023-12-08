@@ -3,29 +3,46 @@ import PollSummary from './PollSummary';
 
 const PollGroup = ({type}) => {   
     let data = useSelector(store => store.polls);
+    let authUserData = useSelector(store => store.authUser);
+    let authUser = authUserData.value;
+
     let polls = [];
     Object.keys(data.values).forEach(key => {
-        if (key !== "loaded") { 
-            let record = data.values[key];
-            if ((record.closed === true) && (type === "Closed")) {
-                polls.push(record);
-            }
-            else if ((record.optionOne.votes.length === 0) && (record.optionTwo.votes.length === 0) && (type === "New")) {
-                polls.push(record);
-            }
-            else if ((record.optionOne.votes.length > 0 || record.optionTwo.votes.length > 0) && (type === "In-Progress")) {
-                polls.push(record);
-            }
+        let record = data.values[key];
+        switch (type) {
+            case "New":
+                if ((record.optionOne.votes.length === 0) && (record.optionTwo.votes.length === 0)) {
+                    polls.push(record);
+                }
+                break;
+            case "Unanswered":
+                if ((record.optionOne.votes.includes(authUser) === false) && (record.optionTwo.votes.includes(authUser) === false)) {
+                    polls.push(record);
+                }
+                break;
+            case "Answered":
+                if ((record.optionOne.votes.includes(authUser) === true) || (record.optionTwo.votes.includes(authUser) === true)) {
+                    polls.push(record);
+                }
+                break;
+            case "Closed":
+                if (record.closed === true) {
+                    polls.push(record);
+                }
+                break;
+            default:
+                break;
         }
     });
 
     return (
-        <div className="poll-group">
-            <div className="poll-group-header">{type}</div>
-            {polls.map(poll => {
-                return <PollSummary key={poll.id} poll={poll} />
-            })}    
-        </div>
+        polls.length === 0 ? null : 
+            <div className="poll-group">
+                <div className="poll-group-header">{type}</div>
+                {polls.map(poll => {
+                    return <PollSummary key={poll.id} poll={poll} />
+                })}    
+            </div>
     );
 };
 
