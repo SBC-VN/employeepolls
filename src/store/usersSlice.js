@@ -1,29 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 const usersSlice = createSlice({
     name: 'users',
     initialState: {
-      value: {},
+      values: {},
       loaded: false
     },
     reducers: {
         addUser: (state, action) => {
             if (!state.hasOwnProperty(action.payload.id)) {
-                state.value[action.payload.id] = action.payload;
+                state.values[action.payload.id] = action.payload;
             }
             else {
                 console.warn(`User ${action.payload.id} already exists.`);
             }
         },
         loadUsers: (state, action) => {
-            state.value = action.payload;
+            state.values = action.payload;
             state.loaded = true;
         },
         addUserResponse: (state, action) => {
-            const { authedUser, pollId, answer } = action.payload;
-            const user = state.value[authedUser];
-            user.answers[pollId] = answer;
+            const { userId, pollId, option } = action.payload;
+            const user = state.values[userId];
+            user.answers[pollId] = option;
         }
     }
   });

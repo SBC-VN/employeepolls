@@ -2,33 +2,41 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const pollsSlice = createSlice({
     name: 'polls',
-    initialState: {
-        value: {},
-        loaded: false
-    },
+    initialState: { values: {}, loaded: false},
     reducers: {
         addPoll: (state, action) => {
             if (!state.hasOwnProperty(action.payload.id)) {
-                state.value[action.payload.id] = action.payload;
-                state.value[action.payload.id].closed = false;
+                state.values[action.payload.id] = action.payload;
+                state.values[action.payload.id].closed = false;
             }
             else {
                 console.warn(`Poll ${action.payload.id} already exists.`);
             }
         },
         loadPolls: (state, action) => {
-            state.value = action.payload;
-            state.loaded = true;
+            state.values = action.payload;
+            state.values.loaded = true;
         },
         addPollVote: (state, action) => {
             const { authedUser, pollId, option } = action.payload;
-            const poll = state.value.find(poll => poll.id === pollId);
-            poll[option].votes.push(authedUser);
+
+            if (state.values.hasOwnProperty(pollId)) {
+                const poll = state.values[pollId];
+                poll[option].votes.push(authedUser);
+            }
+            else {
+                console.warn(`Poll ${pollId} does not exist.`);
+            }
         },
         closePoll: (state, action) => {
             const { pollId } = action.payload;
-            const poll = state.value.find(poll => poll.id === pollId);
-            poll.closed = true;
+            if (state.values.hasOwnProperty(pollId)) {
+                const poll = state.values[pollId];
+                poll.closed = true;
+            }
+            else {
+                console.warn(`Poll ${pollId} does not exist.`);
+            }            
         }
     }
   });
