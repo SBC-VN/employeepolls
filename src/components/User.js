@@ -1,3 +1,8 @@
+/**
+* @description A single user row.  This is used in the LeaderBoard component.
+* 
+* @param - user - The user object to display.
+*/
 
 const User = ({user}) => {
     return (

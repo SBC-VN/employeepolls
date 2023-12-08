@@ -2,7 +2,11 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import ModalWrapper from './ModalWrapper';
 import PollDetail from './PollDetail';
-
+/**
+* @description  Displays a summary of a poll, and has a model to see details (and vote).
+*
+* @param {json} poll - The poll data to display.  This is the entire poll record.
+*/
 
 const PollSummary = ({ poll }) => {
     const [show, setShow] = useState(false);

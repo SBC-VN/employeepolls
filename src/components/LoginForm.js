@@ -4,6 +4,14 @@ import { logon } from '../store/authUserSlice';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+/**
+* @description Basic login form.  Allows the user to select a user from the list of users and logon.
+*               Structured so that it can be called as a modal or as a page.
+*
+* @param {function} handleClose - The function to call when the user clicks the close button.   Clicking 'login' will change
+*                                 the authUser in the store, which will cause the modal to close.
+*/
+
 const LoginForm = ({handleClose}) => {    
     const dispatch = useDispatch();
     let userData = useSelector(store => store.users);

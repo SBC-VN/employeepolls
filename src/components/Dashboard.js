@@ -1,5 +1,9 @@
+/**
+* @description Simply creates 4 PollGroups, one for New, Unanswered, Answered, and Closed polls.
+*/
+
 import PollGroup from './PollGroup';
-import NavBar from './NavBar';
+
 
 const DashBoard = () => { 
     return (

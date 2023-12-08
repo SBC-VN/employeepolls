@@ -1,4 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux';
+/**
+* @description The leaderboard component displays a list of users sorted by the total number of questions and answers they have.
+* 
+* @param - none.   Uses the redux store to get the users.
+*/
+
+
+import { useSelector } from 'react-redux';
 import User from './User';
 
 const LeaderBoard = () => {
@@ -15,9 +22,21 @@ const LeaderBoard = () => {
     return bTotal - aTotal;
   });
 
-  // Display the user grid in sorted order
+  // Display the user grid in sorted order (with header)
   return (
     <div className="leader-board">
+      <div className = "user-row">
+            <div className = "user-avatar-column-header">
+                Name
+            </div>
+            <div className ="user-activity-count-header">
+                Answered
+            </div>
+            <span className="span-columndivider"></span>
+            <div className ="user-activity-count-header">
+                Questioned
+            </div>  
+        </div>
       {sortedusers.map(user => {
         return <User key={user.id} user={user} />
       })}

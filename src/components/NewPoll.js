@@ -8,6 +8,11 @@ import { addUserPoll } from '../store/usersSlice';
 
 import { _saveQuestion } from '../backend/_data';
 
+/**
+* @description Collects the data for a new poll and submits it to the backend.
+*
+*/
+
 const NewPoll = () => {
     const [state, setState] = useState({message: "Please enter two options.", enableButton: false});
     let users = useSelector(store => store.users);
@@ -22,6 +27,10 @@ const NewPoll = () => {
 
     let dispatch = useDispatch();
 
+    // Create the poll.   
+    //   Note the lack of oportunistic updates.  This is deliberate, as it allows the user to resubmit the same poll with much less
+    //     data entry.
+    //
     let createPoll = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -30,7 +39,6 @@ const NewPoll = () => {
         let newrec = { "optionOneText" : option1.current.value, "optionTwoText": option2.current.value, author : authUser.id };
 
         _saveQuestion(newrec).then((result) => {
-            console.log(JSON.stringify(result));
             dispatch(addPoll(result));
             dispatch(addUserPoll({userId: authUser.id, pollId: result.id}));
             option1.current.value = "";
@@ -39,6 +47,7 @@ const NewPoll = () => {
         });
     };
 
+    // Enable the submit button if both options have been entered.   Also set the message to indicate that the user can submit.
     let onChange = (e) => {
         e.preventDefault();
         e.stopPropagation();

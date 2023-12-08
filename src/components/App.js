@@ -13,6 +13,12 @@ import LeaderBoard from './LeaderBoard';
 import { Routes, Route } from 'react-router-dom';
 import QuestionDetails from './QuestionDetails';
 
+/**
+* @description Main App.  Kicks off the data load, routes to /dashboard by default.
+* 
+*/
+
+
 const App = () => {    
     let users = useSelector(store => store.users);
     let polls = useSelector(store => store.polls);
@@ -34,6 +40,7 @@ const App = () => {
             <NavBar parent="dashboard" />
             {(polls.loaded === false || users.loaded === false || auth.value == null) ?  (<h3>Loading</h3>) :
                 (<Routes>
+                    <Route exact path="/" element={<Dashboard />} />
                     <Route exact path="/dashboard" element={<Dashboard />} />
                     <Route exact path="/leaderboard" element={<LeaderBoard />} />
                     <Route exact path="/add" element={<NewPoll />} />

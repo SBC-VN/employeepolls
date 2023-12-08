@@ -1,6 +1,13 @@
 import { useSelector } from 'react-redux';
 import PollSummary from './PollSummary';
 
+/**
+* @description  Selects the polls to display based on the type of poll group requested.
+*
+* @param {string} type - The poll data to display.  One of New, Unanswered, Answered, or Closed.
+*
+*/
+
 const PollGroup = ({type}) => {   
     let data = useSelector(store => store.polls);
     let authUserData = useSelector(store => store.authUser);

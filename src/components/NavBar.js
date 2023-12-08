@@ -5,14 +5,23 @@ import { clearUsersData } from '../store/usersSlice';
 import { clearPollsData } from '../store/pollsSlice';
 const _ = require('underscore');
 
+/**
+* @description Navigation bar.  Displays the navigation tabs and the user avatar.  Has a secret 'reset' button that clears the data.
+*
+* @param {string} parent - The parent component, used to set the default active tab.   Not used.  Should be replaced with the
+*                          react-router-dom history object.               
+*/
 
 function NavBar({parent}) {
     let data = useSelector(store => store.authUser);
     let userData = useSelector(store => store.users);
+
+    // If the authUser is not null, then the user is logged in.  Otherwise display the login link.
     let loggedIn = !(_.isEmpty(data.value));
 
     const dispatch = useDispatch();
 
+    // The secret data reset.  Clears the users and polls data, and logs the user out.   Resets things to what's in the backend.
     const resetData = () => {
         dispatch(clearUsersData());
         dispatch(clearPollsData());
@@ -50,5 +59,4 @@ function NavBar({parent}) {
     );
 };
 
-//onClick={dispatch(logoff())}
 export default NavBar;

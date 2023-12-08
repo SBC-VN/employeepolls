@@ -6,6 +6,14 @@ import { addPollVote } from '../store/pollsSlice';
 import Button from 'react-bootstrap/Button';
 import { _saveQuestionAnswer } from '../backend/_data';
 
+/**
+* @description Displays the details of a poll, including the author, the two options, and the ability to vote.
+*               Structured so that it can be called as a modal or as a page.
+*
+* @param {object} data - The poll data to display.
+* @param {function} handleClose - The function to call when the user clicks the close button.
+*/
+
 const PollDetail = ({data, handleClose}) => {
     // Determine the initial 'message' state of the poll.
     let alreadyVoted = false;
@@ -17,6 +25,8 @@ const PollDetail = ({data, handleClose}) => {
     let authUserData = useSelector(store => store.authUser);
     let authUser = authUserData.value;
 
+    // Set the values of alreadyVoted, userSetOptionOne, allowVote, and initialMessage based on the poll and the authUser.
+    //   Note that the message is persisted, so shouldn't change after the first time it is set.
     if (poll.closed === true) {
         alreadyVoted = true;
         initialMessage = "This poll is already closed.";
@@ -39,10 +49,12 @@ const PollDetail = ({data, handleClose}) => {
     let userData = useSelector(store => store.users);
     let pollAuthor = userData.values[poll.author];
 
+    // No vote allowed if the user hasn't selected an option.
     if (state.selected === 0) {
         allowVote = false;
     }
 
+    // Handle the vote button click below.
     const handleVote = () => {
         let selectedOption = state.selected === 1 ? "optionOne" : "optionTwo";
         setState({message: "Processing submission", selected: state.selected});
@@ -60,6 +72,8 @@ const PollDetail = ({data, handleClose}) => {
         });
     }
 
+    // Calculate the total number of votes for the poll, used in calculating the percentage of votes for each option.
+    //  The percent calculation isn't pretty - needs to be truncated, but not an issue for this project.
     let totalVotes = poll.optionOne.votes.length + poll.optionTwo.votes.length;
 
     return (
