@@ -10,7 +10,7 @@ import LoginForm from './LoginForm';
 import Dashboard from './Dashboard';
 import NewPoll from './NewPoll';
 import LeaderBoard from './LeaderBoard';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import QuestionDetails from './QuestionDetails';
 
 /**
@@ -45,6 +45,7 @@ const App = () => {
                     <Route exact path="/leaderboard" element={<LeaderBoard />} />
                     <Route exact path="/add" element={<NewPoll />} />
                     <Route path="/questions" element={<QuestionDetails />} />
+                    <Route path="*" element={<Navigate to="/dashboard"/>} />
                 </Routes>)}
             <ModalWrapper title={`Login`} Component={() => <LoginForm handleClose={handleClose} />} show={auth.value==null} handleClose={handleClose} />
         </div>

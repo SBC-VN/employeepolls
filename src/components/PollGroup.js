@@ -24,7 +24,9 @@ const PollGroup = ({type}) => {
                 break;
             case "Unanswered":
                 if ((record.optionOne.votes.includes(authUser) === false) && (record.optionTwo.votes.includes(authUser) === false)) {
-                    polls.push(record);
+                    if (!(record.optionOne.votes.length === 0 && record.optionTwo.votes.length === 0) && record.closed !== false) {
+                        polls.push(record);
+                    }
                 }
                 break;
             case "Answered":
