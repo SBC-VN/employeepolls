@@ -14,11 +14,11 @@ const User = ({user}) => {
                     {user.name}
                 </div>
             </div>
-            <div className ="user-activity-count">
+            <div className ="user-activity-count" data-testid="answer-output">
                 {Object.keys(user.answers).length}
             </div>
             <span className="span-columndivider"></span>
-            <div className ="user-activity-count">
+            <div className ="user-activity-count" data-testid="question-output">
                 {user.questions.length}
             </div>  
         </div>

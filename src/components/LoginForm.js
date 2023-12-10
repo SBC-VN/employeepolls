@@ -38,7 +38,7 @@ const LoginForm = ({handleClose}) => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" data-testid="submit-button">
                 Submit
                 </Button>
             </Form>
