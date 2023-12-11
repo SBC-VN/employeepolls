@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logoff } from '../store/authUserSlice';
 import { clearUsersData } from '../store/usersSlice';
 import { clearPollsData } from '../store/pollsSlice';
+import { useNavigate  } from 'react-router-dom';
 const _ = require('underscore');
+
 
 /**
 * @description Navigation bar.  Displays the navigation tabs and the user avatar.  Has a secret 'reset' button that clears the data.
@@ -26,24 +28,31 @@ function NavBar({parent}) {
         dispatch(clearUsersData());
         dispatch(clearPollsData());
         dispatch(logoff());
-        console.log("Clearing data");
     };
 
     let userRec = !data.value ? null : userData.values[data.value];
 
+    const navigate = useNavigate();
+
     return (
         <Nav variant="tabs" defaultActiveKey={parent}>
-        <Nav.Item>
-            <Nav.Link href="/dashboard">Home</Nav.Link>
+        <Nav.Item>            
+            <Nav.Link onClick={() => navigate("/unanswered")} disabled={!loggedIn}>Home</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-            <Nav.Link href="/leaderboard"  disabled={!loggedIn}>Leaderboard</Nav.Link>
+            <Nav.Link onClick={() => navigate("/leaderboard")} disabled={!loggedIn}>Leaderboard</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-            <Nav.Link href="/add" disabled={!loggedIn}>New Poll</Nav.Link>
+            <Nav.Link onClick={() => navigate("/add")} disabled={!loggedIn}>New Poll</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>            
+            <Nav.Link onClick={() => navigate("/unanswered")} disabled={!loggedIn}>Unanswered</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>            
+            <Nav.Link onClick={() => navigate("/answered")} disabled={!loggedIn}>Answered</Nav.Link>
         </Nav.Item>
         <Nav.Item className="nav-rightjustify">
-            <Nav.Link onClick={() => resetData()} href="/dashboard">
+            <Nav.Link onClick={() => resetData()} href="/unanswered">
                 {
                 (userRec) ? (<img src={userRec.avatarURL} alt={userRec.name} className="avatar-nav" />) : ""
                 }
@@ -51,7 +60,7 @@ function NavBar({parent}) {
         </Nav.Item>
         <Nav.Item className="justify-content-end">
             {
-                (_.isEmpty(data.value)) ? (<Nav.Link href="/dashboard">Login</Nav.Link>) : 
+                (_.isEmpty(data.value)) ? (<Nav.Link onClick={() => navigate("/leaderboard")}>Login</Nav.Link>) : 
                     (<Nav.Link onClick={() => {dispatch(logoff())}}>Logout</Nav.Link>)
             }
         </Nav.Item>

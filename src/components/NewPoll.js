@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import { addPoll } from '../store/pollsSlice';
 import { addUserPoll } from '../store/usersSlice';
-
+import { useNavigate  } from 'react-router-dom';
 import { _saveQuestion } from '../backend/_data';
 
 /**
@@ -26,6 +26,7 @@ const NewPoll = () => {
     let enableButton = false;
 
     let dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // Create the poll.   
     //   Note the lack of oportunistic updates.  This is deliberate, as it allows the user to resubmit the same poll with much less
@@ -43,7 +44,7 @@ const NewPoll = () => {
             dispatch(addUserPoll({userId: authUser.id, pollId: result.id}));
             option1.current.value = "";
             option2.current.value = "";
-            setState({message: "(success) Please enter two options.", enableButton: false});
+            navigate("/unanswered");
         });
     };
 
