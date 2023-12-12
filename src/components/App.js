@@ -1,7 +1,8 @@
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { _getUsers, _getQuestions } from '../backend/_data';
+// import { _getUsers, _getQuestions } from '../backend/_data';
+import { _getUsers, _getQuestions } from '../backend/Reader';
 import { loadUsers } from '../store/usersSlice';
 import { loadPolls } from '../store/pollsSlice';
 import { logoff } from '../store/authUserSlice';

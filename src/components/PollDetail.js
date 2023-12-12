@@ -75,7 +75,6 @@ const PollDetail = ({data, handleClose}) => {
     // Calculate the total number of votes for the poll, used in calculating the percentage of votes for each option.
     //  The percent calculation isn't pretty - needs to be truncated, but not an issue for this project.
     let totalVotes = poll.optionOne.votes.length + poll.optionTwo.votes.length;
-    console.log("PollDetail: ", poll, pollAuthor, alreadyVoted, userSetOptionOne, allowVote, state, totalVotes);
 
     return (
         <div className="detail">

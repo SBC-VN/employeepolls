@@ -18,9 +18,7 @@ const PollGroup = ({type}) => {
 
     if (!type) {
         // If we didn't get a type, then we need to figure out what type of poll group from the URL.
-        console.log("PollGroup: location = " + location.pathname);
         if (location.pathname !== "/unanswered" && location.pathname !== "/answered") {
-            console.log("Using navigate");
             navigate("/unanswered");
         }
         type = location.pathname.split('/').pop().toLowerCase();
@@ -56,6 +54,14 @@ const PollGroup = ({type}) => {
     });
 
     type = type.charAt(0).toUpperCase() + type.slice(1);  // Capitalize the first letter of the type.
+
+    polls.sort((a,b) => {
+        let timediff = b.timestamp - a.timestamp;
+        if (timediff === 0) {
+            return b.id - a.id;
+        }
+        return timediff;
+    });
 
     return (
         polls.length === 0 ? null : 

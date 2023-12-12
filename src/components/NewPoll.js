@@ -6,7 +6,7 @@ import { useState } from "react";
 import { addPoll } from '../store/pollsSlice';
 import { addUserPoll } from '../store/usersSlice';
 import { useNavigate  } from 'react-router-dom';
-import { _saveQuestion } from '../backend/_data';
+import { _saveQuestion } from '../backend/Reader';
 
 /**
 * @description Collects the data for a new poll and submits it to the backend.
